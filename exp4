@@ -1,0 +1,54 @@
+import numpy as np
+import pandas as pd
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer, SimpleImputer
+
+data = np.arange(15, 30).reshape(5, 3)
+dfx = pd.DataFrame(data, index=['apple', 'banana', 'kiwi',
+'grapes', 'mango'], columns=['store1', 'store2', 'store3'])
+dfx
+
+dfx['store4'] = np.nan
+dfx.loc['watermelon'] = np.arange(15, 19)
+dfx.loc['oranges'] = np.nan
+dfx['store5'] = np.nan
+dfx['store4']['apple'] = 20.
+dfx
+
+dfx.isnull()
+
+dfx.notnull()
+
+dfx.isnull().sum()
+
+dfx.isnull().sum().sum()
+
+dfx.count()
+
+dfx.store4[dfx.store4.notnull()]
+
+dfx.dropna(how='all')
+
+dfx.dropna(how='all', axis=1)
+
+ar1 = np.array([100, 200, np.nan, 300])
+ser1 = pd.Series(ar1)
+ar1.mean(), ser1.mean()
+
+ser2 = dfx.store4
+ser2.sum()
+
+ser2.mean()
+
+ser2.cumsum()
+
+filledDf = dfx.fillna(0)
+filledDf
+
+dfx.mean()
+filledDf.mean()
+#Backward and forward filling
+#forward-filling - method = ffill
+dfx.store4.fillna(method='ffill')
+#backwad-filling -method =bfill
+dfx.store4.fillna(method='bfill')
